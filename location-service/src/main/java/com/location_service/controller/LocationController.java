@@ -33,13 +33,13 @@ public class LocationController {
     }
 
     @GetMapping("/all")
-    private ResponseEntity<List<ReponseDto>> getAllLocations() {
+    public ResponseEntity<List<ReponseDto>> getAllLocations() {
         List<LocationEntity> allLocations = locationService.getAllLocations();
         return ResponseEntity.ok(mapperLocation.toDtoList(allLocations));
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<ReponseDto> getLocationById(@PathVariable String id) {
+    public ResponseEntity<ReponseDto> getLocationById(@PathVariable String id) {
         LocationEntity searchLocation = locationService.getLocationById(id);
         return ResponseEntity.ok(mapperLocation.toDto(searchLocation));
     }
