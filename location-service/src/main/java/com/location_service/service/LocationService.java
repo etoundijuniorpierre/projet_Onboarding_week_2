@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class LocationService {
 
-    @Autowired
     private final LocationRepository locationRepository;
 
     public LocationService(LocationRepository locationRepository) {

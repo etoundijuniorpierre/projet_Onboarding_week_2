@@ -1,7 +1,7 @@
 package com.location_service.controller;
 
-import com.location_service.dto.ReponseDto;
-import com.location_service.dto.RequestDto;
+import com.location_service.dto.LocationReponseDto;
+import com.location_service.dto.LocationRequestDto;
 import com.location_service.entity.LocationEntity;
 import com.location_service.mapper.MapperLocation;
 import com.location_service.service.LocationService;
@@ -25,21 +25,21 @@ public class LocationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReponseDto> addLocation(@RequestBody RequestDto requestDto) {
-        LocationEntity locationEntity = mapperLocation.toEntity(requestDto);
+    public ResponseEntity<LocationReponseDto> addLocation(@RequestBody LocationRequestDto locationRequestDto) {
+        LocationEntity locationEntity = mapperLocation.toEntity(locationRequestDto);
         LocationEntity createdLocation = locationService.addLocation(locationEntity);
-        ReponseDto responseDto = mapperLocation.toDto(createdLocation);
+        LocationReponseDto responseDto = mapperLocation.toDto(createdLocation);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ReponseDto>> getAllLocations() {
+    public ResponseEntity<List<LocationReponseDto>> getAllLocations() {
         List<LocationEntity> allLocations = locationService.getAllLocations();
         return ResponseEntity.ok(mapperLocation.toDtoList(allLocations));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReponseDto> getLocationById(@PathVariable String id) {
+    public ResponseEntity<LocationReponseDto> getLocationById(@PathVariable String id) {
         LocationEntity searchLocation = locationService.getLocationById(id);
         return ResponseEntity.ok(mapperLocation.toDto(searchLocation));
     }
