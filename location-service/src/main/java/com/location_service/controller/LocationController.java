@@ -3,7 +3,7 @@ package com.location_service.controller;
 import com.location_service.dto.LocationReponseDto;
 import com.location_service.dto.LocationRequestDto;
 import com.location_service.entity.LocationEntity;
-import com.location_service.mapper.MapperLocation;
+import com.location_service.mapper.locationMapper;
 import com.location_service.service.LocationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,30 +17,30 @@ import java.util.List;
 public class LocationController {
 
     private final LocationService locationService;
-    private final MapperLocation mapperLocation;
+    private final locationMapper locationMapper;
 
-    public LocationController(LocationService locationService, MapperLocation mapperLocation) {
+    public LocationController(LocationService locationService, locationMapper locationMapper) {
         this.locationService = locationService;
-        this.mapperLocation = mapperLocation;
+        this.locationMapper = locationMapper;
     }
 
     @PostMapping
     public ResponseEntity<LocationReponseDto> addLocation(@RequestBody LocationRequestDto locationRequestDto) {
-        LocationEntity locationEntity = mapperLocation.toEntity(locationRequestDto);
+        LocationEntity locationEntity = locationMapper.toEntity(locationRequestDto);
         LocationEntity createdLocation = locationService.addLocation(locationEntity);
-        LocationReponseDto responseDto = mapperLocation.toDto(createdLocation);
+        LocationReponseDto responseDto = locationMapper.toDto(createdLocation);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<LocationReponseDto>> getAllLocations() {
         List<LocationEntity> allLocations = locationService.getAllLocations();
-        return ResponseEntity.ok(mapperLocation.toDtoList(allLocations));
+        return ResponseEntity.ok(locationMapper.toDtoList(allLocations));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LocationReponseDto> getLocationById(@PathVariable String id) {
         LocationEntity searchLocation = locationService.getLocationById(id);
-        return ResponseEntity.ok(mapperLocation.toDto(searchLocation));
+        return ResponseEntity.ok(locationMapper.toDto(searchLocation));
     }
 }

@@ -2,8 +2,6 @@ package com.location_service.dto;
 
 
 import lombok.Data;
-import lombok.ToString;
-
 
 @Data
 

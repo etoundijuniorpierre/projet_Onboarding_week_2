@@ -2,7 +2,6 @@ package com.location_service.service;
 
 import com.location_service.entity.LocationEntity;
 import com.location_service.repository.LocationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

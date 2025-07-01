@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface MapperLocation {
+public interface locationMapper {
      LocationEntity toEntity(LocationRequestDto locationRequestDto);
      LocationReponseDto toDto(LocationEntity locationEntity);
      List<LocationReponseDto> toDtoList(List<LocationEntity> locationEntities);
