@@ -3,7 +3,7 @@ package com.location_service.controller;
 import com.location_service.dto.LocationReponseDto;
 import com.location_service.dto.LocationRequestDto;
 import com.location_service.entity.LocationEntity;
-import com.location_service.mapper.locationMapper;
+import com.location_service.mapper.LocationMapper;
 import com.location_service.service.LocationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +17,16 @@ import java.util.List;
 public class LocationController {
 
     private final LocationService locationService;
-    private final locationMapper locationMapper;
+    private final LocationMapper locationMapper;
 
-    public LocationController(LocationService locationService, locationMapper locationMapper) {
+    public LocationController(LocationService locationService, LocationMapper locationMapper) {
         this.locationService = locationService;
         this.locationMapper = locationMapper;
     }
 
     @PostMapping
     public ResponseEntity<LocationReponseDto> addLocation(@RequestBody LocationRequestDto locationRequestDto) {
-        LocationEntity locationEntity = locationMapper.toEntity(locationRequestDto);
-        LocationEntity createdLocation = locationService.addLocation(locationEntity);
+        LocationEntity createdLocation = locationService.addLocation(locationMapper.toEntity(locationRequestDto));
         LocationReponseDto responseDto = locationMapper.toDto(createdLocation);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
